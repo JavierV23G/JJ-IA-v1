@@ -1,0 +1,1009 @@
+@import '../../../variables';
+
+// Variables de colores mejoradas
+$primary-color: #4f46e5; // Indigo principal
+$primary-light: rgba($primary-color, 0.15);
+$accent-color: #f97316; // Naranja más vivo
+$accent-light: rgba($accent-color, 0.15);
+$success-color: #10b981; // Verde para acciones positivas
+$success-light: rgba($success-color, 0.15);
+$danger-color: #ef4444; // Rojo para acciones negativas
+$danger-light: rgba($danger-color, 0.15);
+$info-color: #3b82f6; // Azul para información
+$info-light: rgba($info-color, 0.15);
+$background-dark: rgba(#1e1e2f, 0.7);
+$card-background: rgba(#2d3748, 0.3);
+$input-background: rgba(#1a202c, 0.7);
+$text-color: #e2e8f0;
+$text-muted: #a0aec0;
+$border-color: rgba(#4a5568, 0.5);
+$border-hover: rgba(#63b3ed, 0.8);
+
+// Estilos para el formulario de referidos médicos
+.form-container {
+  background-color: $background-dark;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  margin-top: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  
+  .form-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    position: relative;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(to right, transparent, $accent-color, transparent);
+      border-radius: 3px;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      color: $accent-color;
+      margin-bottom: 8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      
+      i {
+        font-size: 1.8rem;
+        background: linear-gradient(135deg, $accent-color, darken($accent-color, 15%));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: pulse 2s infinite;
+      }
+    }
+    
+    p {
+      font-size: 1.1rem;
+      color: $text-muted;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+}
+
+// Estilos para el área de subida de PDF
+.form-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, $card-background, rgba(#1e1e2f, 0.4));
+  border: 2px dashed rgba($accent-color, 0.4);
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 40px;
+  min-height: 220px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba($accent-color, 0.03) 0%, transparent 70%);
+    z-index: 0;
+  }
+  
+  &:hover {
+    border-color: $accent-color;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    
+    .placeholder-icon {
+      transform: scale(1.1) rotate(10deg);
+      background-color: rgba($accent-color, 0.2);
+    }
+  }
+  
+  .placeholder-icon {
+    z-index: 1;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba($accent-color, 0.1);
+    margin-bottom: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px dashed rgba($accent-color, 0.4);
+      animation: spin 15s linear infinite;
+    }
+    
+    i {
+      font-size: 2.5rem;
+      color: $accent-color;
+      z-index: 2;
+    }
+  }
+  
+  h3 {
+    color: $text-color;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+    z-index: 1;
+  }
+  
+  p {
+    color: $text-muted;
+    font-size: 1.1rem;
+    margin: 0;
+    z-index: 1;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  // Estilo cuando hay archivos subidos
+  .pdf-files-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+    
+    i {
+      font-size: 3rem;
+      color: $accent-color;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 0 8px rgba($accent-color, 0.3));
+    }
+    
+    h3 {
+      color: $text-color;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, $text-color, darken($text-color, 20%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .files-list {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      
+      .file-item {
+        background: rgba($input-background, 0.6);
+        border-radius: 8px;
+        padding: 14px 18px;
+        color: $text-color;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        border-left: 3px solid $accent-color;
+        
+        &:before {
+          content: '\f1c1';
+          font-family: 'Font Awesome 5 Free';
+          font-weight: 900;
+          margin-right: 12px;
+          color: $accent-color;
+          font-size: 1.2rem;
+        }
+        
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: 100%;
+          width: 40px;
+          background: linear-gradient(to right, transparent, $input-background);
+        }
+      }
+    }
+  }
+}
+
+// Formulario que aparece después de subir PDFs
+.patient-referral-form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  animation: fadeIn 0.6s ease;
+  
+  // Sección del formulario
+  .form-section {
+    background: linear-gradient(145deg, $card-background, rgba(#1e1e2f, 0.4));
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle at top right, rgba($primary-color, 0.1), transparent 70%);
+      pointer-events: none;
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba($text-muted, 0.2);
+      position: relative;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: $primary-color;
+        border-radius: 3px;
+      }
+      
+      i {
+        font-size: 1.8rem;
+        margin-right: 15px;
+        padding: 12px;
+        border-radius: 10px;
+        background: $primary-light;
+        color: $primary-color;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+      
+      h3 {
+        font-size: 1.5rem;
+        color: $text-color;
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    }
+    
+    // Iconos específicos para cada sección
+    &:nth-child(1) .section-header i {
+      background-color: $info-light;
+      color: $info-color;
+    }
+    
+    &:nth-child(2) .section-header i {
+      background-color: $accent-light;
+      color: $accent-color;
+    }
+    
+    &:nth-child(3) .section-header i {
+      background-color: $success-light;
+      color: $success-color;
+    }
+    
+    &:nth-child(4) .section-header i {
+      background-color: $primary-light;
+      color: $primary-color;
+    }
+    
+    // Grid para organizar los campos
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        
+        &.full-width {
+          grid-column: 1 / -1;
+        }
+        
+        label {
+          color: $text-muted;
+          font-size: 0.95rem;
+          margin-bottom: 8px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          
+          i {
+            margin-right: 5px;
+            font-size: 0.9rem;
+            color: rgba($text-muted, 0.8);
+          }
+        }
+        
+        input, select, textarea {
+          background-color: $input-background;
+          border: 1px solid $border-color;
+          border-radius: 8px;
+          color: $text-color;
+          padding: 12px 15px;
+          font-size: 1rem;
+          transition: all 0.2s ease;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+          
+          &:focus {
+            border-color: $border-hover;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+          }
+          
+          &::placeholder {
+            color: rgba($text-muted, 0.6);
+          }
+        }
+        
+        select {
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a0aec0' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: calc(100% - 15px) center;
+          padding-right: 40px;
+          
+          &:focus {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%233b82f6' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+          }
+        }
+        
+        textarea {
+          min-height: 120px;
+          resize: vertical;
+          line-height: 1.6;
+        }
+        
+        // Estilos para los checkboxes y radio buttons
+        &.checkbox-group {
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 15px;
+          
+          .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background-color: rgba($input-background, 0.5);
+            transition: all 0.2s ease;
+            
+            &:hover {
+              background-color: rgba($input-background, 0.8);
+            }
+            
+            input[type="checkbox"],
+            input[type="radio"] {
+              margin-right: 8px;
+              cursor: pointer;
+              position: relative;
+              width: 18px;
+              height: 18px;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+              border: 2px solid $border-color;
+              border-radius: 4px;
+              outline: none;
+              transition: all 0.2s ease;
+              background-color: rgba($input-background, 0.8);
+              
+              &:checked {
+                background-color: $primary-color;
+                border-color: $primary-color;
+                
+                &:after {
+                  content: '\f00c';
+                  font-family: 'Font Awesome 5 Free';
+                  font-weight: 900;
+                  font-size: 0.7rem;
+                  color: white;
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                }
+              }
+              
+              &:focus {
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+              }
+            }
+            
+            input[type="radio"] {
+              border-radius: 50%;
+              
+              &:checked:after {
+                content: '';
+                width: 8px;
+                height: 8px;
+                background-color: white;
+                border-radius: 50%;
+              }
+            }
+            
+            .checkbox-label {
+              color: $text-color;
+              font-size: 0.95rem;
+            }
+          }
+        }
+        
+        // Contenedor para números de contacto
+        .contact-numbers {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          
+          .contact-number-row {
+            display: flex;
+            align-items: center;
+            
+            input {
+              flex: 1;
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            
+            .contact-actions {
+              display: flex;
+              
+              button {
+                background-color: $input-background;
+                border: 1px solid $border-color;
+                border-left: none;
+                padding: 0;
+                width: 42px;
+                height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                
+                &:first-child {
+                  border-top-right-radius: 8px;
+                  border-bottom-right-radius: 8px;
+                }
+                
+                &:hover {
+                  background-color: rgba($input-background, 1);
+                }
+                
+                &.add-contact {
+                  color: $success-color;
+                  
+                  &:hover {
+                    background-color: $success-light;
+                  }
+                }
+                
+                &.remove-contact {
+                  color: $danger-color;
+                  
+                  &:hover {
+                    background-color: $danger-light;
+                  }
+                }
+              }
+            }
+          }
+        }
+        
+        // Cert Period container - Estilizado especial
+        .cert-period-container {
+          .date-inputs {
+            display: flex;
+            align-items: center;
+            
+            .date-input {
+              flex: 1;
+              
+              &.start-date input {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+              }
+              
+              &.end-date input {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                border-left: none;
+                background-color: rgba($input-background, 0.5);
+                color: rgba($text-color, 0.7);
+              }
+            }
+            
+            .date-separator {
+              margin: 0 -1px;
+              width: 40px;
+              text-align: center;
+              font-size: 1.2rem;
+              color: $text-muted;
+              background-color: rgba($input-background, 0.3);
+              height: 42px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-top: 1px solid $border-color;
+              border-bottom: 1px solid $border-color;
+              z-index: 1;
+            }
+          }
+          
+          small.form-text {
+            margin-top: 8px;
+            display: block;
+            font-size: 0.85rem;
+            color: rgba($text-muted, 0.8);
+            font-style: italic;
+          }
+        }
+        
+        // Estilos para Disciplines
+        .disciplines-container {
+          .disciplines-pairs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            
+            .discipline-pair {
+              display: flex;
+              flex-direction: column;
+              gap: 15px;
+              padding: 20px;
+              border-radius: 12px;
+              background: linear-gradient(145deg, rgba($input-background, 0.4), rgba($input-background, 0.7));
+              border: 1px solid $border-color;
+              transition: all 0.3s ease;
+              
+              &:hover {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-2px);
+              }
+              
+              .discipline-checkboxes {
+                display: flex;
+                gap: 15px;
+                
+                .discipline-checkbox {
+                  flex: 1;
+                  display: flex;
+                  align-items: center;
+                  padding: 12px 15px;
+                  border-radius: 8px;
+                  background-color: rgba($input-background, 0.4);
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                  border: 1px solid transparent;
+                  
+                  input {
+                    margin-right: 10px;
+                    position: relative;
+                    width: 18px;
+                    height: 18px;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    border: 2px solid $border-color;
+                    border-radius: 4px;
+                    outline: none;
+                    transition: all 0.2s ease;
+                    background-color: rgba($input-background, 0.8);
+                    
+                    &:checked {
+                      background-color: $primary-color;
+                      border-color: $primary-color;
+                      
+                      &:after {
+                        content: '\f00c';
+                        font-family: 'Font Awesome 5 Free';
+                        font-weight: 900;
+                        font-size: 0.7rem;
+                        color: white;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                      }
+                    }
+                  }
+                  
+                  span {
+                    color: $text-color;
+                    font-weight: 600;
+                    font-size: 1.1rem;
+                  }
+                  
+                  &.selected {
+                    background-color: $primary-light;
+                    border-color: rgba($primary-color, 0.5);
+                    
+                    span {
+                      color: $primary-color;
+                    }
+                  }
+                  
+                  &:hover:not(.selected) {
+                    background-color: rgba($input-background, 0.7);
+                  }
+                }
+              }
+              
+              .therapist-select {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                animation: fadeIn 0.3s ease;
+                
+                label {
+                  color: $text-muted;
+                  font-size: 0.9rem;
+                  margin-left: 5px;
+                }
+                
+                select {
+                  border-radius: 8px;
+                  background-color: rgba($input-background, 0.7);
+                }
+              }
+            }
+          }
+          
+          .discipline-note {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba($info-color, 0.1);
+            border-left: 3px solid $info-color;
+            
+            p {
+              margin: 0;
+              color: $text-muted;
+              font-size: 0.95rem;
+              display: flex;
+              align-items: center;
+              
+              i {
+                color: $info-color;
+                margin-right: 10px;
+                font-size: 1.1rem;
+              }
+            }
+          }
+        }
+        
+        // Botón de enviar
+        &.submit-group {
+          margin-top: 20px;
+          
+          .save-referral-btn {
+            background: linear-gradient(135deg, $accent-color, darken($accent-color, 15%));
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            padding: 16px 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba($accent-color, 0.3);
+            position: relative;
+            overflow: hidden;
+            
+            i {
+              margin-right: 10px;
+              font-size: 1.2rem;
+            }
+            
+            &:after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+              transform: translateX(-100%);
+            }
+            
+            &:hover {
+              transform: translateY(-3px);
+              box-shadow: 0 8px 25px rgba($accent-color, 0.4);
+              
+              &:after {
+                animation: shimmer 1.5s infinite;
+              }
+            }
+            
+            &:active {
+              transform: translateY(-1px);
+              box-shadow: 0 4px 15px rgba($accent-color, 0.3);
+            }
+            
+            @keyframes shimmer {
+              100% {
+                transform: translateX(100%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Estilos específicos para Homebound - formato vertical */
+.homebound-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+  
+  .option-item {
+    .checkbox-container {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background-color: rgba(26, 32, 44, 0.5);
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(74, 85, 104, 0.3);
+      cursor: pointer;
+      
+      &:hover {
+        background-color: rgba(26, 32, 44, 0.7);
+        border-color: rgba(99, 179, 237, 0.3);
+      }
+      
+      input[type="checkbox"] {
+        margin-right: 10px;
+        position: relative;
+        width: 18px;
+        height: 18px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 2px solid #4a5568;
+        border-radius: 4px;
+        outline: none;
+        transition: all 0.2s ease;
+        background-color: rgba(26, 32, 44, 0.8);
+        flex-shrink: 0;
+        
+        &:checked {
+          background-color: #4f46e5;
+          border-color: #4f46e5;
+          
+          &:after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 12px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+      
+      .checkbox-label {
+        color: #e2e8f0;
+        font-size: 0.95rem;
+      }
+    }
+    
+    // Corregido: Cambiado de :has a una clase separada
+    .checkbox-container.checked {
+      border-color: rgba(79, 70, 229, 0.5);
+      background-color: rgba(79, 70, 229, 0.08);
+      
+      .checkbox-label {
+        color: #a5b4fc;
+        font-weight: 500;
+      }
+    }
+    
+    .other-reason {
+      margin-top: 8px !important;
+      margin-left: 30px;
+      width: calc(100% - 30px);
+    }
+  }
+}
+
+/* Estilos específicos para Reasons for Referral - formato vertical */
+.reason-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  
+  .option-item {
+    .checkbox-container {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background-color: rgba(26, 32, 44, 0.5);
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(74, 85, 104, 0.3);
+      cursor: pointer;
+      
+      &:hover {
+        background-color: rgba(26, 32, 44, 0.7);
+        border-color: rgba(111, 76, 255, 0.3);
+      }
+      
+      input[type="checkbox"] {
+        margin-right: 10px;
+        position: relative;
+        width: 18px;
+        height: 18px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 2px solid #4a5568;
+        border-radius: 4px;
+        outline: none;
+        transition: all 0.2s ease;
+        background-color: rgba(26, 32, 44, 0.8);
+        flex-shrink: 0;
+        
+        &:checked {
+          background-color: #6f4cff;
+          border-color: #6f4cff;
+          
+          &:after {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 12px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+      
+      .checkbox-label {
+        color: #e2e8f0;
+        font-size: 0.95rem;
+      }
+    }
+    
+    // Corregido: Cambiado de :has a una clase separada
+    .checkbox-container.checked {
+      border-color: rgba(111, 76, 255, 0.5);
+      background-color: rgba(111, 76, 255, 0.08);
+      
+      .checkbox-label {
+        color: #c7d2fe;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.additional-reasons {
+  margin-top: 15px;
+  
+  label {
+    color: #a0aec0;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+    display: block;
+  }
+  
+  textarea {
+    height: 80px;
+    min-height: 80px;
+    font-size: 0.95rem;
+  }
+}
+
+// Animaciones
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Ajustes para responsividad
+@media (max-width: 992px) {
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .disciplines-pairs {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-container {
+    padding: 20px 15px;
+  }
+  
+  .form-section {
+    padding: 20px 15px;
+  }
+  
+  .discipline-checkboxes {
+    flex-direction: column;
+    gap: 10px !important;
+  }
+}
+
+
